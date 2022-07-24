@@ -1,0 +1,26 @@
+package Dao;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+
+import Connection.DBConnection;
+import Model.Seller;
+
+public class SellerDao {
+	public static void insertSeller(Seller v) {
+		try {
+			Connection conn = DBConnection.createConnection();
+			String sql="insert into sellerdata(name,contact,address,email,password) values(?,?,?,?,?)";
+			PreparedStatement pst = conn.prepareStatement(sql);
+			pst.setString(1, v.getName());
+			pst.setInt(2, v.getContact());
+			pst.setString(3, v.getAddress());
+			pst.setString(4, v.getEmail());
+			pst.setString(5, v.getPassword());
+			pst.executeUpdate();
+			System.out.println("data inserted");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+}
